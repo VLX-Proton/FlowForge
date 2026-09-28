@@ -1,0 +1,93 @@
+{
+  "name": "flowforge",
+  "private": true,
+  "version": "1.0.0",
+  "main": "electron/main.js",
+  "description": "FlowForge personal workflow app",
+  "author": "VILOOX",
+  "desktopName": "com.personal.flowforge.desktop",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace=web",
+    "dev": "concurrently \"npm run dev --workspace=web\" \"ts-node --project backend/tsconfig.json backend/runtime-server.ts\"",
+    "typecheck:backend": "tsc --noEmit -p backend/tsconfig.json",
+    "electron:dev": "NODE_ENV=development electron electron/main.js",
+    "electron:build": "npm run build --workspace=web && npm run electron:compile && electron-builder",
+    "electron:compile": "tsc -p backend/tsconfig.json"
+  },
+  "dependencies": {
+    "axios": "^1.17.0",
+    "firebase": "^12.19.0",
+    "concurrently": "^10.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.4",
+    "form-data": "^4.0.5",
+    "lucide-vue-next": "^1.0.0",
+    "multer": "^1.4.5-lts.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/axios": "0.14.4",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.25",
+    "@types/multer": "^1.4.5",
+    "@types/node": "^25.9.3",
+    "electron": "^42.4.1",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.personal.flowforge",
+    "productName": "FlowForge",
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "backend/data/.env",
+        "to": "data/.env"
+      },
+      {
+        "from": "backend/",
+        "to": "backend"
+      },
+      {
+        "from": "backend-dist/",
+        "to": "backend-dist"
+      },
+      {
+        "from": "apps/web/dist/",
+        "to": "apps/web/dist"
+      },
+      {
+        "from": "node_modules/",
+        "to": "node_modules"
+      },
+      {
+        "from": "build/icon.png",
+        "to": "build/icon.png"
+      }
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utility",
+      "icon": "build/icon.png"
+    }
+  },
+  "allowScripts": {
+    "better-sqlite3@12.11.1": true,
+    "electron-winstaller@5.4.0": true
+  }
+}

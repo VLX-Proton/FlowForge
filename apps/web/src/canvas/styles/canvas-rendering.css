@@ -1,0 +1,12 @@
+/*
+ * Rendering hints for content inside the scaled .workspace.
+ * Does not affect coordinate math — display polish only.
+ */
+
+.workspace svg {
+  shape-rendering: geometricPrecision;
+}
+
+.workspace .vector-stroke {
+  vector-effect: non-scaling-stroke;
+}

@@ -1,0 +1,4 @@
+export const WORLD_PLANE_SIZE = 100_000
+
+export const WORLD_PLANE_ORIGIN =
+  -WORLD_PLANE_SIZE / 2
