@@ -1,0 +1,1 @@
+// Config simplified — SQLite removed
